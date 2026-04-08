@@ -1,16 +1,16 @@
 [project] # Update all fields in this section
-name = "project-name-here" 
-version = "0.1.0" 
+name = "AletheiaSeq"  # Change this to your package - it must match module name in src
+dynamic = ["version"]  # Change the version in __init__.py in the package directory.
 description = "Short description here"
-authors = [{name = "Author name", email = "email.address@example.com"}] 
-requires-python = ">=3.12" 
-dependencies = ["pandas", "pyyaml", "climb-onyx-client"] 
+authors = [{name = "Natalie Groves", email = "natalie.groves@ukhsa.gov.uk"}]
+requires-python = ">=3.12"
+dependencies = ["pandas", "pyyaml", "climb-onyx-client"]
 
 [tool.setuptools.dynamic]
-version = {attr = "project_name_here.__version__"} # Add underscore separated repo name here
+version = {attr = "gpha_mscape_aletheia_seq.__version__"} # Add package name here to get version
 
 [project.optional-dependencies] # Dependencies for developers only - add more if required
-dev = ["ruff>=0.4.10,<0.5", "pytest", "pre-commit"] 
+dev = ["ruff", "pytest", "pre-commit"]
 
 [build-system] # Leave this section
 requires = ["setuptools"]
@@ -42,7 +42,7 @@ select = [
 ignore = ["E501"] # Lint rules to ignore - add or remove as required
 
 [tool.ruff]
-line-length = 100
+line-length = 120
 
 [tool.ruff.format]
 quote-style = "double"
