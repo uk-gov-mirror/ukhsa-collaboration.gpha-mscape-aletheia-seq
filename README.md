@@ -1,69 +1,52 @@
-# mscape-template
+# AletheiaSeq
 
-This repository is a template for creating new repositories containing code that 
-will run on mSCAPE. It serves as a guide for code layout and files will need 
-amending to fit the repo purpose.
+In Greek mythology, Aletheia is the divine personification and spirit of truth, sincerity, and disclosure. Her name translates literally to "unconcealedness" or "state of being unhidden".
 
-There is guidance documentation including SOPs that contain further information on required repository
-structure, development cycles, and making pull requests. Please read
-this guidance documentation before using the template.
+AletheiaSeq is a python package intended to be used to parse the output from BLAST and (optionally) Skope according to an input YAML file to determine presence/absence of specific signals in a set of sequence reads. The intention is the loci included in the BLAST database are specific to a species or characteristic and therefore can be used as a signal of a "true" detection.
 
-Below the dashed line is a README template to be edited.
-
----------------------
-# Project or Repo Name
-
-Brief description of project here
+The config YAML details which (and how many) loci must be present in the read set to positively identify a species or trait (e.g., toxin or resistance loci). It also details any QC thresholds to be applied to the outputs such as blast percent identity thresholds or number of reads the loci should be identified in. The package will take any blastn result as input so could be used on contigs but filtering the assembly to remove any contigs with poor read support is advised as minimum hits would have to be set to `1` in this instance.
 
 ## Installation
 
-Add installation instructions here. Ideally include commands to make
-the process as easy as possible for users.
-
 Clone repo and create environment:
 
-`git clone git@github.com:ukhsa-collaboration/project-name.git`
+`git clone git@github.com:ukhsa-collaboration/gpha-mscape-aletheia-seq.git`
 
-`conda env create -n project-name `
+`conda env create -n aletheia_seq python=3.12`
 
-`conda activate project-name`
+`conda activate aletheia_seq`
 
-Installation for users: 
+Installation for users:
 
-`cd project-name`
+`cd gpha-mscape-aletheia-seq`
 
 `pip install .`
 
-Installation for developers (installs code in editable mode): 
+Installation for developers (installs code in editable mode):
 
-`cd project-name`
+`cd gpha-mscape-aletheia-seq`
 
 `pip install --editable '.[dev]'`
 
 ## Usage
 
-Include command line arguments (e.g. the output displayed when using -h)
-for reference. Example commands can also be helpful.
-
 ```
 project-name --input <path> --output <path>
 ```
 
-## Inputs (optional - useful if you have a CLI)
+## Inputs
 
-You may wish to use a table to list out the args:
+### YAML format
 
-| Argument | Required | Description |
-| -------- | ------- | ------- |
-| --input, -i | Yes | Input for command line use  |
-| --output, -o | Yes | Output for command line use  |
+The YAML file should contain 3 sections:
+- Schema details - information about the specific schema
+- Blast details - the loci included in the blast database, filters to be applied and the outfmt string to be used in blastn (`prepare` will validate that the column names used in the filters are present in the outfmt string)
+- Group details - the species/characteristics to be determined using the loci including details of minimum number of loci and any required loci
 
-## Outputs (optional - useful if your tool creates lots of output files)
+An example YAML file is provided in docs/examples/example.yml
 
-Explain the output files in detail here.
+YAML files can be validated by using the `prepare` command
 
-## Other sections
+## Outputs
 
-Add other sections as appropriate for your repo. This may include
-instructions on updating the repo, instructions on adding new
-references, troubleshooting etc.
+AletheiaSeq will produce an HTML report describing the loci identified and optionally a JSON output compatible with the onyx analysis table.

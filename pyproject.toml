@@ -7,7 +7,7 @@ requires-python = ">=3.12"
 dependencies = ["pandas", "pyyaml", "climb-onyx-client"]
 
 [tool.setuptools.dynamic]
-version = {attr = "gpha_mscape_aletheia_seq.__version__"} # Add package name here to get version
+version = {attr = "AletheiaSeq.__version__"} # Add package name here to get version
 
 [project.optional-dependencies] # Dependencies for developers only - add more if required
 dev = ["ruff", "pytest", "pre-commit"]
@@ -17,7 +17,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project.scripts] # Update with main repo script here
-qc_sample = "mscape_template.mscape_script:main"
+qc_sample = "AletheiaSeq.aletheiaseq_script:main"
 
 [tool.ruff.lint] # Lint rules to follow - add or delete if required
 select = [
