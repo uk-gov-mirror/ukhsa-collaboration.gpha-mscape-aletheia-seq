@@ -4,20 +4,28 @@ dynamic = ["version"]  # Change the version in __init__.py in the package direct
 description = "Short description here"
 authors = [{name = "Natalie Groves", email = "natalie.groves@ukhsa.gov.uk"}]
 requires-python = ">=3.12"
-dependencies = ["pandas", "pyyaml", "climb-onyx-client"]
+dependencies = [
+    "pandas",
+    "pyyaml",
+    "climb-onyx-client",
+]
 
 [tool.setuptools.dynamic]
 version = {attr = "AletheiaSeq.__version__"} # Add package name here to get version
 
 [project.optional-dependencies] # Dependencies for developers only - add more if required
-dev = ["ruff", "pytest", "pre-commit"]
+dev = [
+    "ruff",
+    "pytest",
+    "pre-commit",
+]
 
 [build-system] # Leave this section
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project.scripts] # Update with main repo script here
-qc_sample = "AletheiaSeq.aletheiaseq_script:main"
+aletheiaseq = "AletheiaSeq.aletheiaseq_script:main"
 
 [tool.ruff.lint] # Lint rules to follow - add or delete if required
 select = [
