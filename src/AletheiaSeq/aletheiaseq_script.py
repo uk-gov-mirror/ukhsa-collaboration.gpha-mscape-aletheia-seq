@@ -12,6 +12,7 @@ def set_up_logger(log_filepath):
     """
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
+    logging.captureWarnings(True)
     formatter = logging.Formatter("[%(asctime)s] %(levelname)s: %(message)s")
 
     out_handler = logging.FileHandler(log_filepath, mode="a")

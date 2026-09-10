@@ -8,6 +8,7 @@ dependencies = [
     "pandas",
     "pyyaml",
     "climb-onyx-client",
+    "pydantic",
 ]
 
 [tool.setuptools.dynamic]

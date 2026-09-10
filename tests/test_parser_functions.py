@@ -3,7 +3,7 @@ import datetime
 import pandas as pd
 import pytest
 
-from AletheiaSeq import aletheiaseq_parse
+from AletheiaSeq import aletheiaseq_parse, aletheiaseq_validate_yml
 
 """
 FIXTURES
@@ -13,10 +13,14 @@ FIXTURES
 @pytest.fixture
 def valid_yaml():
     yml = {
-        "SchemaDetails": {"name": "Streptococcus", "type": "speciation", "version": "v0.1"},
+        "SchemaDetails": {"name": "Test", "schema_type": "speciation", "version": "0.1.0"},
         "BlastDetails": {
-            "seqs": ["ply", "lytA", "SP2020", "gmuR", "wzg", "kdpE", "scpC", "cfb", "fbpS"],
-            "db_name": "Streptococcus_speciation",
+            "seqs": [
+                "locus1",
+                "locus2",
+                "locus3",
+            ],
+            "db_name": "Test_speciation",
             "db_type": "nucleotide",
             "last_update": datetime.date(2026, 8, 6),
             "outfmt": [
@@ -52,7 +56,7 @@ def valid_yaml():
 def parser(valid_yaml):
     p = aletheiaseq_parse.AletheiaSeqParser.__new__(aletheiaseq_parse.AletheiaSeqParser)
 
-    p.yml = valid_yaml
+    p.yml = aletheiaseq_validate_yml.SchemaConfig.model_validate(valid_yaml)
 
     p.loci_results = {}
     return p
@@ -99,7 +103,7 @@ def test_filter_blast_applies_filters(parser, blast_df):
 
 
 def test_filter_blast_no_filters_marks_all_pass(parser, blast_df):
-    parser.yml["BlastDetails"]["filters"] = []
+    parser.yml.BlastDetails.filters = []
     parser.blast_df = blast_df
 
     parser._AletheiaSeqParser__filter_blast()
@@ -218,7 +222,7 @@ def test_summarise_groups_minimum_loci_fails(parser):
 
 
 def test_empty_required_loci_always_passes(parser, monkeypatch, blast_df):
-    parser.yml["SchemaGroups"][0]["required_loci"] = []
+    parser.yml.SchemaGroups[0].required_loci = []
 
     monkeypatch.setattr(
         parser,
