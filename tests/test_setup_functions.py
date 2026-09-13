@@ -252,7 +252,7 @@ def test_parse_subcommand_parses(base_args, blast_out):
     assert args.sample == "ID-123"
     assert args.blast_out == blast_out
     assert args.skope_out is None
-    assert args.onyx is False
+    assert args.onyx_server is None
 
 
 def test_parse_subcommand_optional(base_args, tmp_path, blast_out):
@@ -271,11 +271,11 @@ def test_parse_subcommand_optional(base_args, tmp_path, blast_out):
             "--skope_out",
             str(tmp_path / "skope_classify.out"),
         ]
-        + ["--onyx"]
+        + ["--onyx_server", "mscape"]
     )
 
     assert args.skope_out == str(tmp_path / "skope_classify.out")
-    assert args.onyx is True
+    assert args.onyx_server == "mscape"
 
 
 def test_parse_subcommand_function(base_args, blast_out):

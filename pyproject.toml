@@ -9,6 +9,7 @@ dependencies = [
     "pyyaml",
     "climb-onyx-client",
     "pydantic",
+    "onyx-analysis-helper@git+https://github.com/ukhsa-collaboration/onyx-analysis-helper.git@v0.6.3",
 ]
 
 [tool.setuptools.dynamic]
@@ -27,6 +28,9 @@ build-backend = "setuptools.build_meta"
 
 [project.scripts] # Update with main repo script here
 aletheiaseq = "AletheiaSeq.aletheiaseq_script:main"
+
+[project.urls]
+Homepage = "https://github.com/ukhsa-collaboration/gpha-mscape-aletheia-seq"
 
 [tool.ruff.lint] # Lint rules to follow - add or delete if required
 select = [

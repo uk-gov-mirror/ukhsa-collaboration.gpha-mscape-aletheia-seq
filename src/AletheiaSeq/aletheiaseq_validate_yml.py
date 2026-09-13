@@ -297,6 +297,17 @@ class SchemaConfig(BaseModel):
 
         return self
 
+    def summarise_methods(self):
+        blast_filters = {
+            "filters": self.BlastDetails.filters,
+            "minimum_blast_hits": self.BlastDetails.min_hits,
+        }
+        groups = {}
+        for g in self.SchemaGroups:
+            groups[g.name] = g.model_dump(exclude=["name"])
+
+        return {"blast_filters": blast_filters, "schema_group_definitions": groups}
+
 
 def _load_yml(yaml_file: str):
     with Path(yaml_file).open("r") as f:

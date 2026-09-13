@@ -142,6 +142,12 @@ def argument_parser() -> argparse.ArgumentParser:
         help="Path to blast output. N.B. outfmt must match what is detailed in the YAML to parse the output correctly.",
     )
     parse.add_argument("--skope_out", required=False, type=_is_valid_path, help="Path to output of skope classify.")
-    parse.add_argument("--onyx", required=False, action="store_true", help="Produce json for onyx analysis table")
+    parse.add_argument(
+        "--onyx_server",
+        required=False,
+        type=str,
+        choices=["mscape", "synthscape", "devscape"],
+        help="Onyx server for analysis record. If not provided no analysis table result will be generated.",
+    )
 
     return parser
