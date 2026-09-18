@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Literal
 
 import yaml
-from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic import BaseModel, Field, ValidationError, field_validator, model_validator
 
 
 class SchemaDetails(BaseModel):
@@ -319,7 +319,12 @@ def _load_yml(yaml_file: str):
 def validate_yaml(yaml_path: str) -> SchemaConfig:
     yml = _load_yml(yaml_path)
     logging.info("Yaml file loaded, validating contents.")
-    config = SchemaConfig.model_validate(yml)
+
+    try:
+        config = SchemaConfig.model_validate(yml)
+    except ValidationError as e:
+        logging.info(f"Schema: {config.SchemaDetails.name}, v{config.SchemaDetails.version} validation failed.")
+        logging.info(e.errors())
 
     logging.info(f"Schema: {config.SchemaDetails.name}, v{config.SchemaDetails.version} validated.")
     return config
