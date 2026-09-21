@@ -292,3 +292,21 @@ def test_parse_subcommand_function(base_args, blast_out):
     )
 
     assert args.func is aletheiaseq_parse.parse
+
+
+def test_publish_flag(base_args, blast_out):
+    parser = aletheiaseq_commandline.argument_parser()
+    args = parser.parse_args(base_args + ["parse", "--sample_id", "ID-123", "--blast_out", blast_out, "--publish"])
+
+    assert args.publish
+    assert args.dryrun
+
+
+def test_dryrun_flag(base_args, blast_out):
+    parser = aletheiaseq_commandline.argument_parser()
+    args = parser.parse_args(
+        base_args + ["parse", "--sample_id", "ID-123", "--blast_out", blast_out, "--publish", "--no_dryrun"]
+    )
+
+    assert args.publish
+    assert not args.dryrun

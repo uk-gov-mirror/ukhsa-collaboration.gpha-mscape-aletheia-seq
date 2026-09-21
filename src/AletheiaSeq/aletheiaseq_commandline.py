@@ -149,5 +149,25 @@ def argument_parser() -> argparse.ArgumentParser:
         choices=["mscape", "synthscape", "devscape"],
         help="Onyx server for analysis record. If not provided no analysis table result will be generated.",
     )
+    parse.add_argument(
+        "--publish",
+        "-p",
+        dest="publish",
+        required=False,
+        action="store_true",
+        default=False,
+        help="Flag to indicate whether onyx analysis object should be pushed to the database",
+    )
+    # this stores a bool counterintuitively
+    # the default is to store True so that all runs are uploaded with dryrun=True
+    # unless the --no_dryrun flag is explicitly set, in which case it is dryrun=False
+    parse.add_argument(
+        "--no_dryrun",
+        dest="dryrun",
+        required=False,
+        action="store_false",
+        default=True,
+        help="Flag to indicate that onyx upload should not be a test upload (default is to perform test upload to prevent accidental publishing)",
+    )
 
     return parser

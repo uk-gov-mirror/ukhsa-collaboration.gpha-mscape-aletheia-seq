@@ -278,7 +278,7 @@ def parse(parsed_args: dict):
     )
 
     if parsed_args.onyx_server:
-        onyx_output, code = create_analysis_fields(
+        onyx_output, exitcode = create_analysis_fields(
             parsed_args.sample,
             asp.yml.SchemaDetails,
             methods_dict,
@@ -286,3 +286,23 @@ def parse(parsed_args: dict):
             asp.loci_results,
             parsed_args.onyx_server,
         )
+
+        if exitcode != 0:
+            logging.error("Could not create onyx analysis object, check logs for details")
+        else:
+            logging.info("Analysis object created successfully - writing to json")
+            json_out = (
+                Path(parsed_args.out_folder)
+                / f"{parsed_args.sample}_{asp.yml.SchemaDetails.name}_{asp.yml.SchemaDetails.version}_onyx_record.json"
+            )
+            onyx_output.write_analysis_to_json(json_out)
+            if parsed_args.publish:
+                analysis_id, exitcode = onyx_output.write_analysis_to_onyx(
+                    server="synthscape", dryrun=parsed_args.dryrun, publish_analysis=True
+                )
+                if exitcode != 0:
+                    logging.error("Could not publish onyx analysis record, check logs for details")
+                else:
+                    logging.info(
+                        f"Pushed analysis object to onyx using dryrun={parsed_args.dryrn}. Analysis ID {analysis_id}"
+                    )
