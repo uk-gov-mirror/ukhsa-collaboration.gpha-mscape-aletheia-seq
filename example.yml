@@ -1,0 +1,51 @@
+SchemaDetails:
+    name: ExampleSchema
+    schema_type: speciation
+    version: 0.1.0
+BlastDetails:
+    seqs:
+        - locus1
+        - locus2
+        - locus3
+        - locus4
+    db_name: Example_speciation
+    db_type: nucleotide
+    last_update: 2026-08-06
+    outfmt:
+        - qseqid
+        - sseqid
+        - qlen
+        - slen
+        - qstart
+        - qend
+        - sstart
+        - send
+        - evalue
+        - bitscore
+        - length
+        - pident
+    filters:
+        - pident >= 80
+        - evalue <= 1e-10
+        - length >= (slen * 0.8)
+    min_hits: 3
+SchemaGroups:
+    - name: Group1
+      defining_loci:
+            - locus1
+            - locus2
+            - locus3
+      required_loci:
+            - locus1
+      minimum_loci_required: 2
+    - name: Group2
+      defining_loci:
+            - locus3
+      required_loci: []
+      minimum_loci_required: 1
+    - name: Group3
+      defining_loci:
+            - locus4
+      required_loci:
+            - locus4
+      minimum_loci_required: 1
