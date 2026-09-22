@@ -12,7 +12,7 @@ Clone repo and create environment:
 
 `git clone git@github.com:ukhsa-collaboration/gpha-mscape-aletheia-seq.git`
 
-`conda env create -n aletheia_seq python=3.12`
+`conda create -n aletheia_seq python=3.12`
 
 `conda activate aletheia_seq`
 
@@ -31,7 +31,7 @@ Installation for developers (installs code in editable mode):
 ## Usage
 
 ```
-usage: AletheiaSeq [-h] --yaml YAML --outfolder OUT_FOLDER {prepare,parse} ...
+usage: aletheiaseq [-h] --yaml YAML --outfolder OUT_FOLDER {prepare,parse} ...
 
 In Greek mythology, Aletheia is the divine personification and spirit of truth, sincerity, and disclosure. Her name translates literally to 'unconcealedness' or 'state of being unhidden'.
 This package is intended to replicate loci-based presence/absence confirmation used in reference laboratories for speciation and characterisation of species of interest as a way of producing a 'ground-truth' from sequence data.
@@ -55,7 +55,7 @@ AletheiaSeq has two submethods `prepare` and `parse`.
 Prepare should be used to check that the yaml file is valid and the correct sequences are defined. It will generate a bash script to run the blast command.
 
 ```
-usage: AletheiaSeq prepare [-h] --fasta REF_FASTA --blast_db BLAST_DB [--skope_idx SKOPE_IDX]
+usage: aletheiaseq prepare [-h] --fasta REF_FASTA --blast_db BLAST_DB [--skope_idx SKOPE_IDX]
 
 options:
   -h, --help            show this help message and exit
@@ -70,7 +70,7 @@ options:
 Parse will process the blast results and produce an onyx analysis table JSON file (with the option to publish) as well as a summary html file. Both methods require the defining yaml file and an output folder so these should be specified before the subcommand in the commandline.
 
 ```
-usage: AletheiaSeq parse [-h] --sample_id SAMPLE --blast_out BLAST_OUT [--skope_out SKOPE_OUT] [--onyx_server {mscape,synthscape,devscape}] [--publish] [--no_dryrun]
+usage: aletheiaseq parse [-h] --sample_id SAMPLE --blast_out BLAST_OUT [--skope_out SKOPE_OUT] [--onyx_server {mscape,synthscape,devscape}] [--publish] [--no_dryrun]
 
 options:
   -h, --help            show this help message and exit

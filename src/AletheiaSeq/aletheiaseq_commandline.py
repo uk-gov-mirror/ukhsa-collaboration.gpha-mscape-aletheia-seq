@@ -53,7 +53,7 @@ def _check_folder(folder: str) -> str:
 
 def argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="AletheiaSeq",
+        prog="aletheiaseq",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description=textwrap.dedent("""
                                        In Greek mythology, Aletheia is the divine personification and spirit of truth, sincerity, and disclosure. Her name translates literally to 'unconcealedness' or 'state of being unhidden'.
